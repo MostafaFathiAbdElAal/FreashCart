@@ -1,0 +1,291 @@
+@import url("https://fonts.googleapis.com/css2?family=Encode+Sans+Expanded:wght@300&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+	.form-control {
+		@apply px-3 py-1 rounded outline-none border-2 border-gray-200 focus:border-gray-700
+	}
+
+	.btn-success {
+		@apply px-10 py-1 bg-Success bg-opacity-75 rounded-md hover:bg-Success hover:bg-opacity-100 transition-colors duration-300 text-white
+	}
+	.btn-success:active {
+		transform: scaleX(90%);
+	}
+
+	.primary-shadow {
+		box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+
+	}
+}
+
+.PreDiscount {
+	text-decoration: line-through;
+	font-size: 11px;
+}
+
+body {
+	font-family: "Encode Sans Expanded", ;
+}
+
+.preloader {
+	--hue: 120;
+	--bg: hsl(var(--hue), 10%, 90%);
+	--fg: hsl(var(--hue), 10%, 10%);
+	--primary: hsl(var(--hue), 40%, 55%);
+	--trans-dur: 0.3s;
+	font-size: calc(16px + (20 - 16) * (100vw - 320px) / (1280 - 320));
+}
+
+.preloader {
+	text-align: center;
+	max-width: 20em;
+	width: 100%;
+}
+
+.preloader__text {
+	position: relative;
+	height: 1.5em;
+}
+
+.preloader__msg {
+	animation: msg 0.3s 13.7s linear forwards;
+	position: absolute;
+	width: 100%;
+}
+
+.preloader__msg--last {
+	animation-direction: reverse;
+	animation-delay: 14s;
+	visibility: hidden;
+}
+
+.cart {
+	display: block;
+	margin: 0 auto 1.5em auto;
+	width: 8em;
+	height: 8em;
+}
+
+.cart__lines,
+.cart__top,
+.cart__wheel1,
+.cart__wheel2,
+.cart__wheel-stroke {
+	animation: cartLines 2s ease-in-out infinite;
+}
+
+.cart__lines {
+	stroke: var(--primary);
+}
+
+.cart__top {
+	animation-name: cartTop;
+}
+
+.cart__wheel1 {
+	animation-name: cartWheel1;
+	transform: rotate(-0.25turn);
+	transform-origin: 43px 111px;
+}
+
+.cart__wheel2 {
+	animation-name: cartWheel2;
+	transform: rotate(0.25turn);
+	transform-origin: 102px 111px;
+}
+
+.cart__wheel-stroke {
+	animation-name: cartWheelStroke
+}
+
+.cart__track {
+	stroke: hsla(var(--hue), 10%, 10%, 0.1);
+	transition: stroke var(--trans-dur);
+}
+
+.main-shadow:hover {
+	box-shadow: #4fa74f 0px 13px 27px -5px, #4fa74f 0px 8px 16px -8px;
+}
+
+/* Dark theme */
+@media (prefers-color-scheme: dark) {
+	:root {
+		--bg: hsl(var(--hue), 10%, 10%);
+		--fg: hsl(var(--hue), 10%, 90%);
+	}
+
+	.cart__track {
+		stroke: hsla(var(--hue), 10%, 90%, 0.1);
+	}
+}
+
+/* Animations */
+@keyframes msg {
+	from {
+		opacity: 1;
+		visibility: visible;
+	}
+
+	99.9% {
+		opacity: 0;
+		visibility: visible;
+	}
+
+	to {
+		opacity: 0;
+		visibility: hidden;
+	}
+}
+
+@keyframes cartLines {
+
+	from,
+	to {
+		opacity: 0;
+	}
+
+	8%,
+	92% {
+		opacity: 1;
+	}
+}
+
+@keyframes cartTop {
+	from {
+		stroke-dashoffset: -338;
+	}
+
+	50% {
+		stroke-dashoffset: 0;
+	}
+
+	to {
+		stroke-dashoffset: 338;
+	}
+}
+
+@keyframes cartWheel1 {
+	from {
+		transform: rotate(-0.25turn);
+	}
+
+	to {
+		transform: rotate(2.75turn);
+	}
+}
+
+@keyframes cartWheel2 {
+	from {
+		transform: rotate(0.25turn);
+	}
+
+	to {
+		transform: rotate(3.25turn);
+	}
+}
+
+@keyframes cartWheelStroke {
+
+	from,
+	to {
+		stroke-dashoffset: 81.68;
+	}
+
+	50% {
+		stroke-dashoffset: 40.84;
+	}
+}
+
+.imageSlider button {
+	@apply border border-[3px] border-solid border-transparent
+}
+
+.imageSlider button:hover {
+	@apply border border-[3px] border-solid border-black border-opacity-70
+}
+
+.imageSlider button.active {
+	@apply border border-[3px] border-solid border-black
+}
+
+.loader {
+	width: 50px;
+	aspect-ratio: 1;
+	border-radius: 50%;
+	background:
+		radial-gradient(farthest-side, #0aad0a 94%, #0000) top/8px 8px no-repeat,
+		conic-gradient(#0000 30%, #0aad0a);
+	-webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
+	animation: l13 1s infinite linear;
+}
+
+@keyframes l13 {
+	100% {
+		transform: rotate(1turn)
+	}
+}
+
+.loaderBase {
+	color: #fff;
+	font-size: 10px;
+	width: 1em;
+	height: 1em;
+	border-radius: 50%;
+	position: relative;
+	text-indent: -9999em;
+	animation: mulShdSpin 1.3s infinite linear;
+	transform: translateZ(0);
+  }
+  
+  @keyframes mulShdSpin {
+	0%,
+	100% {
+	  box-shadow: 0 -3em 0 0.2em, 
+	  2em -2em 0 0em, 3em 0 0 -1em, 
+	  2em 2em 0 -1em, 0 3em 0 -1em, 
+	  -2em 2em 0 -1em, -3em 0 0 -1em, 
+	  -2em -2em 0 0;
+	}
+	12.5% {
+	  box-shadow: 0 -3em 0 0, 2em -2em 0 0.2em, 
+	  3em 0 0 0, 2em 2em 0 -1em, 0 3em 0 -1em, 
+	  -2em 2em 0 -1em, -3em 0 0 -1em, 
+	  -2em -2em 0 -1em;
+	}
+	25% {
+	  box-shadow: 0 -3em 0 -0.5em, 
+	  2em -2em 0 0, 3em 0 0 0.2em, 
+	  2em 2em 0 0, 0 3em 0 -1em, 
+	  -2em 2em 0 -1em, -3em 0 0 -1em, 
+	  -2em -2em 0 -1em;
+	}
+	37.5% {
+	  box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em,
+	   3em 0em 0 0, 2em 2em 0 0.2em, 0 3em 0 0em, 
+	   -2em 2em 0 -1em, -3em 0em 0 -1em, -2em -2em 0 -1em;
+	}
+	50% {
+	  box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em,
+	   3em 0 0 -1em, 2em 2em 0 0em, 0 3em 0 0.2em, 
+	   -2em 2em 0 0, -3em 0em 0 -1em, -2em -2em 0 -1em;
+	}
+	62.5% {
+	  box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em,
+	   3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 0, 
+	   -2em 2em 0 0.2em, -3em 0 0 0, -2em -2em 0 -1em;
+	}
+	75% {
+	  box-shadow: 0em -3em 0 -1em, 2em -2em 0 -1em, 
+	  3em 0em 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, 
+	  -2em 2em 0 0, -3em 0em 0 0.2em, -2em -2em 0 0;
+	}
+	87.5% {
+	  box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 
+	  3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, 
+	  -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;
+	}
+  }
+	
