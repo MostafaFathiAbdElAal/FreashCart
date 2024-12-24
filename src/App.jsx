@@ -28,7 +28,7 @@ import Products from './Pages/Products/Products'
 import ProductsByIdCategory from './Pages/ProductsByIdCategory/ProductsByIdCategory'
 export default function App() {
   const router = createBrowserRouter([{
-    path: "/",
+    path: "FreashCart/",
     element: <ProtectedRoute>
       <Layout />
     </ProtectedRoute>,
@@ -85,7 +85,7 @@ export default function App() {
     ]
   },
   {
-    path: "/auth",
+    path: "FreashCart/auth",
     element: <GuestRoute>
       <Layout />
     </GuestRoute>,
