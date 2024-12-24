@@ -64,14 +64,15 @@ export default function ProductDetails() {
     return <>
         <Helmet>
             <title>Product details</title>
+            <meta name="description" content="Find out the details of the products you clicked on" />
         </Helmet>
         {
-            productDetails ? <>
+            productDetails ? <section>
                 <Helmet>
                     <title>{productDetails.title}</title>
                 </Helmet>
                 <div className="grid gap-5 grid-cols-3 sm:grid-cols-6 md:grid-cols-12 shadow-lg p-5 ">
-                    <div className="col-span-5 imageSlider shadow-md ">
+                    <figure className="col-span-5 imageSlider shadow-md ">
                         <ReactImageGallery showPlayButton={false} showNav={false} showFullscreenButton={false} items={productDetails.images.map((image) => {
                             return {
                                 original: image,
@@ -79,10 +80,12 @@ export default function ProductDetails() {
 
                             }
                         })} />
-                    </div>
-                    <div className="col-span-7 relative">
-                        <h3 className="text-3xl text-black font-medium leading-7 mt-2">{productDetails.title}</h3>
-                        <h2 className="text-Success font-semibold mx-1 mt-1">{productDetails.subcategory[0].name}</h2>
+                    </figure>
+                    <article className="col-span-7 relative">
+                        <header>
+                            <h3 className="text-3xl text-black font-medium leading-7 mt-2">{productDetails.title}</h3>
+                            <h2 className="text-Success font-semibold mx-1 mt-1">{productDetails.subcategory[0].name}</h2>
+                        </header>
                         <div className="flex items-center gap-1 mt-2">
                             <i className="fa-solid fa-star text-yellow-500"></i>
                             <span className="text-sm font-semibold text-[#656565] ">{productDetails.ratingsAverage}</span>
@@ -100,33 +103,52 @@ export default function ProductDetails() {
                             <span className="text-3xl text-black font-semibold ">Brand :<span className="font-bold text-lg ps-1 text-slate-600 ">{productDetails.brand.name}</span></span>
                         </div>
 
-                        <div>
+                        <figure>
                             <img src={productDetails.brand.image} alt={productDetails.brand.name} className="w-full h-28 object-contain" />
-                        </div>
+                        </figure>
                         <span className="text-3xl text-black font-semibold">Description</span>
                         <p className="text-slate-500 font-semibold text-base mt-1">{productDetails.description}</p>
                         <div className="absolute bottom-0  flex gap-3 w-full p-4 flex-col ">
                             <p className="text-black font-semibold text-lg self-end px-1">In stock : <span className="text-sm font-bold">{productDetails.quantity} Pcs</span></p>
                             {
                                 productDetails.quantity === 0 ? <div className="w-full p-3 bg-red-400 text-lg text-center font-bold text-white rounded-md">
-                                    Not available in stock</div> : <button onClick={() => {
+                                    Not available in stock</div> : <button type="button" onClick={() => {
                                         addProductToCart({ productId: productDetails._id })
                                     }} className="btn-success  uppercase py-2 grow border border-solid border-opacity-25 hover:bg-black text-white hover:text-white bg-black bg-opacity-85 transition-colors duration-500 font-bold">add to cart</button>
                             }
                         </div>
-                    </div>
+                    </article>
                 </div>
-                <section className="mt-10">
-                    <h4 className="text-2xl font-semibold px-4 mb-3">Related products</h4>
-                    {relatedProduct ? <Swiper slidesPerView={4} spaceBetween={"8px"} loop={true} autoplay={true}>
+                <figure className="mt-10">
+                    <figcaption className="text-2xl font-semibold px-4 mb-3">Related products</figcaption>
+                    {relatedProduct ? <Swiper loop={true} autoplay={true} slidesPerView={1} breakpoints={{
+                        400: {
+                            slidesPerView: 2
+                        },
+                        500: {
+                            slidesPerView: 2
+                        },
+                        600: {
+                            slidesPerView: 3
+                        },
+                        700: {
+                            slidesPerView: 4
+                        },
+                        800: {
+                            slidesPerView: 4
+                        },
+                        950: {
+                            slidesPerView: 5
+                        }
+                    }}>
                         {relatedProduct.map((product) => {
                             return <SwiperSlide className="flex " key={product._id}>
                                 <div className="p-2"><ProductCard productDetails={product} /></div>
                             </SwiperSlide>
                         })}
                     </Swiper> : null}
-                </section>
-            </> : <Loading />
+                </figure>
+            </section> : <Loading />
         }
     </>
 }

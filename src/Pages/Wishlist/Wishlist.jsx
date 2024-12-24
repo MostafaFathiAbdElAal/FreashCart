@@ -18,15 +18,18 @@ export default function Wishlist() {
     return <>
         <Helmet>
             <title>Wishlist</title>
+            <meta name="description" content="Find all your favourite products here" />
         </Helmet>
         {wishlistProducts ? <section>
             <div className="bg-gray-100 py-5 px-5">
-                <h2 className="text-2xl font-semibold mb-2">My Wish List</h2>
+                <header>
+                    <h2 className="text-2xl font-semibold mb-2">My Wish List</h2>
+                </header>
                 <div className="items space-y-5">
                     {wishlistProducts.map((product) => <div key={product._id} className="relative grid grid-cols-12 border-b border-[#dee2e6] pb-2">
-                        <div className="col-span-12 md:col-span-4">
-                        <img className="h-52 w-full object-contain" src={product.imageCover} alt={product.title} />
-                        </div>
+                        <figure className="col-span-12 md:col-span-4">
+                            <img className="h-52 w-full object-contain" src={product.imageCover} alt={product.title} />
+                        </figure>
                         <div className="col-span-12 md:col-span-8 px-5 font-semibold grid grid-cols-12 gap-2">
                             <div className="col-span-12 mt-4">
                                 <h3 className="text-xl">{product.title}</h3>
@@ -35,26 +38,23 @@ export default function Wishlist() {
                                     {
                                         product.priceAfterDiscount > 0 ? <p><span className="text-Success">{product.priceAfterDiscount}</span> EGP</p> : null}
                                 </div>
-                                <button onClick={() => {
+                                <button type="button" onClick={() => {
                                     removeItemWishList(product._id)
-
                                 }} className="text-red-500 hover:text-red-700 transition-colors duration-300"><span><i className="fa-solid fa-trash"></i></span> Remove</button>
-                                <button onClick={() => {
+                                <button type="button" onClick={() => {
                                     addProductToCart({ productId: product._id })
                                 }} className="ms-10 text-Success text-opacity-70 hover:text-opacity-100 transition-colors duration-300">Add to cart <i className="fa-solid fa-cart-plus text-lg"></i></button>
                             </div>
-
-
                         </div>
                     </div>)}
                 </div>
             </div>
-        </section> : wishlistProducts === 0 ? <div className="rounded-md bg-slate-200 p-5 space-y-3 flex flex-col items-center justify-center mt-8">
-            <div>
+        </section> : wishlistProducts === 0 ? <section className="rounded-md bg-slate-200 p-5 space-y-3 flex flex-col items-center justify-center mt-8">
+            <header>
                 <h2 className="font-semibold text-lg text-center">Oops! your wishlist is empty.</h2>
                 <h3 className="font-semibold text-sm text-center">Start shopping now by clicking the button below and find something you love!</h3>
-            </div>
+            </header>
             <Link className="btn-success block w-fit font-semibold" to={"/"}>Back to Home</Link>
-        </div> : <Loading />}
+        </section> : <Loading />}
     </>
 }

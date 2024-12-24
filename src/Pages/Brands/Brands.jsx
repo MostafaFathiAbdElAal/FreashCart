@@ -49,27 +49,31 @@ export default function Brands() {
             }, 400)
         }
     })
-
     return <>
         <Helmet>
             <title>
                 Brands
             </title>
+            <meta name="description" content="Freshcart brands page explore all brands" />
         </Helmet>
         {isLoading ? <Loading /> : <section>
-            <h2 className="text-4xl font-medium text-Success mb-10 text-center">All Brands</h2>
+            <header>
+                <h2 className="text-4xl font-medium text-Success mb-10 text-center">All Brands</h2>
+            </header>
             <div className="grid grid-cols-3 sm:grid-cols-6 md:grid-cols-9 lg:grid-cols-12 gap-5">
-                {data.data.data.map((product) => <div key={product._id} onClick={() => {
+                {data.data.data.map((product) => <div role="button" key={product._id} onClick={() => {
                     setIsClick(true)
                     getSpecificBrands(product._id)
                 }} className="col-span-3 shadow-lg main-shadow transition-[box-shadow,transform] duration-500 h-60 border hover:-translate-y-3 border-1 rounded-sm border-solid border-[b1b1b1]">
-                    <img src={product.image} alt={product.name} className="w-full h-36 object-contain" />
-                    <h3 className="text-center font-semibold text-base">{product.name}</h3>
-                    <div className="fixed top-0 bottom-0 right-0 left-0 bg-black bg-opacity-40 hidden"></div>
+                    <figure>
+                        <img src={product.image} alt={product.name} className="w-full h-36 object-contain" />
+                        <figcaption className="text-center font-semibold text-base">{product.name}</figcaption>
+                    </figure>
+                    <div role="banner" className="fixed top-0 bottom-0 right-0 left-0 bg-black bg-opacity-40 hidden"></div>
                 </div>
                 )}
             </div>
-            {isClick ? <div className={`fixed top-0 bottom-0  right-0 left-0 z-50 bg-black bg-opacity-30 flex justify-center items-start ${isHidden ? "hidden" : ""} transition-opacity duration-700`}>
+            {isClick ? <div className={`fixed top-0 bottom-0  right-0 left-0 z-[9999] bg-black bg-opacity-30 flex justify-center items-start ${isHidden ? "hidden" : ""} transition-opacity duration-700`}>
                 <DatailsBrand dataSpecificBrand={dataSpecificBrand} setDataSpecificBrand={setDataSpecificBrand} />
             </div> : null}
         </section>}

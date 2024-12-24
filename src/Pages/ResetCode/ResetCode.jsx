@@ -4,7 +4,6 @@ import { useState } from "react"
 import toast from "react-hot-toast"
 import { useNavigate } from "react-router-dom"
 import * as Yup from "yup"
-import CountDownTimer from "../../Components/CountDownTime/CountDownTime"
 import { Helmet } from "react-helmet"
 export default function ResetCode() {
     const [oneClick, setOneClick] = useState(true)
@@ -50,25 +49,29 @@ export default function ResetCode() {
     return <>
         <Helmet>
             <title>Ververify code</title>
+            <meta name="description" content="Enter Ververify code to access to change your password" />
         </Helmet>
         <section className=" flex flex-col">
-            <h2 className="text-Success space-x-2 text-2xl mb-2">
-                <i className="fa-regular fa-circle-user"></i>
-                <span>Ververify code</span>
-            </h2>
-            <form action="" className="space-y-2" onSubmit={Formik.handleSubmit}>
-                <div>
-                    <input type="tel" inputMode="numeric" autoComplete="off" placeholder="Ververify code" className="form-control w-full" maxLength="6"
-                        name="resetCode" value={Formik.values.resetCode} onChange={Formik.handleChange}
-                        onBlur={Formik.handleBlur}
-                    />
-                    <div className="text-red-600 text-sm font-semibold flex">{Formik.errors.resetCode && Formik.touched.resetCode ? "* " + Formik.errors.resetCode : ""} <div className="ms-auto pe-5   pt-1 w-full"><CountDownTimer /></div></div>
-                </div>
-
-                <div className="mt-2" style={{ margin: 0 }}>
-                    <button type="submit" className="btn-success uppercase mt-1">Send</button>
-                </div>
-            </form>
+            <header>
+                <h2 className="text-Success space-x-2 text-2xl mb-2">
+                    <i className="fa-regular fa-circle-user"></i>
+                    <span>Ververify code</span>
+                </h2>
+            </header>
+            <fieldset>
+                <form action="" className="space-y-2" onSubmit={Formik.handleSubmit}>
+                    <div>
+                        <input type="tel" inputMode="numeric" autoComplete="off" placeholder="Ververify code" className="form-control w-full" maxLength="6"
+                            name="resetCode" value={Formik.values.resetCode} onChange={Formik.handleChange}
+                            onBlur={Formik.handleBlur}
+                        />
+                        <div className="text-red-600 text-sm font-semibold flex items-center">{Formik.errors.resetCode && Formik.touched.resetCode ? "* " + Formik.errors.resetCode : ""} </div>
+                    </div>
+                    <div className="mt-2" style={{ margin: 0 }}>
+                        <button type="submit" className="btn-success uppercase mt-1">Send</button>
+                    </div>
+                </form>
+            </fieldset>
         </section>
     </>
 }

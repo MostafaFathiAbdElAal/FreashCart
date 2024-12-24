@@ -1,6 +1,6 @@
 import axios from "axios"
 import { useFormik } from "formik"
-import { useContext, useEffect, useState } from "react"
+import { useContext, useState } from "react"
 import toast from "react-hot-toast"
 import { Link, useNavigate } from "react-router-dom"
 import * as Yup from "yup"
@@ -9,7 +9,6 @@ import { Helmet } from "react-helmet"
 export default function Login() {
     const { setToken } = useContext(UserContext)
     const [oneClick, setOneClick] = useState(true)
-    const [errorMessage, setErrorMessage] = useState(null)
     const navigate = useNavigate()
     const [errorRespose, setErrorRespose] = useState(null)
     const passwordRegex = /^[A-Z][0-9a-zA-Z]{6,25}$/
@@ -38,12 +37,10 @@ export default function Login() {
                         setOneClick(true)
                     }
                 }, 2500)
-                setErrorMessage(null)
                 setErrorRespose(null)
             }
         } catch (error) {
             setOneClick(true)
-            setErrorMessage(error.response.data.message)
             setErrorRespose(error.response.data.message)
             toast.error(error.response.data.message)
         } finally {
@@ -74,38 +71,43 @@ export default function Login() {
     return <>
         <Helmet>
             <title>Login</title>
+            <meta name="description" content="Freshcart login" />
         </Helmet>
         <section>
-            <h2 className="text-Success space-x-2 text-2xl mb-2">
-                <i className="fa-regular fa-circle-user"></i>
-                <span>Login Now</span>
-            </h2>
-            <form action="" className="space-y-2" onSubmit={Formik.handleSubmit}>
-                <div>
-                    <input type="email" autoComplete="on" placeholder="Email" className="form-control w-full"
-                        name="email" value={Formik.values.email} onChange={Formik.handleChange}
-                        onBlur={Formik.handleBlur}
-                    />
-                    {Formik.errors.email && Formik.touched.email ? <div className="text-red-600 text-base font-semibold flex ">* {Formik.errors.email}</div> : ""}
-                </div>
-                <div className="relative">
-                    <input type="password" autoComplete="on" placeholder="Password" className="form-control w-full"
-                        name="password" value={Formik.values.password} onChange={Formik.handleChange}
-                        onBlur={Formik.handleBlur}
-                    />
-                    <div className="absolute top-2 right-2 " onClick={(e) => {
-                        toogleEye(e)
-                    }}>
-                        <i className={IsShowPassword ? "fi fi-rs-crossed-eye" : "fi fi-rs-eye"} />
+            <header>
+                <h2 className="text-Success space-x-2 text-2xl mb-2">
+                    <i className="fa-regular fa-circle-user"></i>
+                    <span>Login Now</span>
+                </h2>
+            </header>
+            <fieldset>
+                <form action="" className="space-y-2" onSubmit={Formik.handleSubmit}>
+                    <div>
+                        <input type="email" autoComplete="on" placeholder="Email" className="form-control w-full"
+                            name="email" value={Formik.values.email} onChange={Formik.handleChange}
+                            onBlur={Formik.handleBlur}
+                        />
+                        {Formik.errors.email && Formik.touched.email ? <div className="text-red-600 text-sm font-semibold flex items-center">* {Formik.errors.email}</div> : ""}
                     </div>
-                    {Formik.errors.password && Formik.touched.password ? <div className="text-red-600 text-base font-semibold flex ">* {Formik.errors.password}</div> : ""}
-                </div>
-                {errorRespose !== null ? <div className="text-red-600 text-base font-semibold flex ">* {errorRespose}</div> : ""}
-                <div className="flex flex-col items-start mt-2" style={{ margin: 0 }}>
-                    <Link to="/auth/ForgotPassword" ><span className="text-gray-400 font-sans text-xs font-semibold">Forgot your password?</span></Link>
-                    <button type="submit" className="btn-success uppercase mt-1">login</button>
-                </div>
-            </form>
+                    <div className="relative">
+                        <input type="password" autoComplete="on" placeholder="Password" className="form-control w-full"
+                            name="password" value={Formik.values.password} onChange={Formik.handleChange}
+                            onBlur={Formik.handleBlur}
+                        />
+                        <div className="absolute top-2 right-2 " onClick={(e) => {
+                            toogleEye(e)
+                        }}>
+                            <i className={IsShowPassword ? "fi fi-rs-crossed-eye" : "fi fi-rs-eye"} />
+                        </div>
+                        {Formik.errors.password && Formik.touched.password ? <div className="text-red-600 text-sm font-semibold flex items-center ">* {Formik.errors.password}</div> : ""}
+                    </div>
+                    {errorRespose !== null ? <div className="text-red-600 text-sm font-semibold flex items-center">* {errorRespose}</div> : ""}
+                    <div className="flex flex-col items-start mt-2" style={{ margin: 0 }}>
+                        <Link to="/auth/ForgotPassword" className="ms-auto flex items-center"><span className="text-gray-400 font-semibold text-xs">Forgot your password?</span></Link>
+                        <button type="submit" className="btn-success uppercase mt-1">login</button>
+                    </div>
+                </form>
+            </fieldset>
         </section>
     </>
 }

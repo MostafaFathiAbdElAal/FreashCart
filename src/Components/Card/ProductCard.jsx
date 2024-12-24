@@ -7,15 +7,16 @@ export default function ProductCard({ productDetails }) {
     const { addProductToCart } = useContext(CartContext)
     const { addProductToWishlist, removeItemWishList } = useContext(WishListContext)
     return <>
-        <div className="col-span-12 relative sm:col-span-6 md:col-span-4 lg:col-span-3 xl:col-span-2 overflow-hidden main-shadow rounded-lg flex flex-wrap hover:-translate-y-3 shadow-lg transition-[transform,box-shadow] duration-300 ease-in-out delay-[0s,10ms]">
-            <div className="relative w-full">
-                <img className="w-full min-h-[255px] object-cover" src={images[0]} alt="" />
-                <div className="w-full h-full absolute top-0 bottom-0 bg-black bg-opacity-15 opacity-0 hover:opacity-100 transition-opacity duration-500 flex justify-center items-center gap-2"> <div onClick={() => {
-                    addProductToWishlist({ productId: _id })
-                }} className="w-10 cursor-pointer h-10 rounded-full hover:scale-110 hover:rotate-6 transition-transform duration-300 bg-Success flex justify-center items-center">
-                    <i className={`fa-solid fa-heart text-white`}></i>
-                </div> 
-                    <div onClick={() => {
+        <section className="col-span-12 relative group sm:col-span-6 md:col-span-4 lg:col-span-3 xl:col-span-2 overflow-hidden main-shadow rounded-lg flex flex-wrap hover:-translate-y-3 shadow-lg transition-[transform,box-shadow] duration-300 ease-in-out delay-[0s,10ms]">
+            <figure className="relative w-full">
+                <img className="w-full min-h-[255px] object-cover" src={images[0]} alt={title} />
+                <div className="w-full h-full absolute top-0 bottom-0 bg-black bg-opacity-15 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex justify-center items-center gap-2">
+                    <div role="button" onClick={() => {
+                        addProductToWishlist({ productId: _id })
+                    }} className="w-10 cursor-pointer h-10 rounded-full hover:scale-110 hover:rotate-6 transition-transform duration-300 bg-Success flex justify-center items-center">
+                        <i className={`fa-solid fa-heart text-white`}></i>
+                    </div>
+                    <div role="button" onClick={() => {
                         addProductToCart({ productId: _id })
                     }} className="w-10 cursor-pointer h-10 rounded-full hover:scale-110 hover:rotate-6 transition-transform duration-300 bg-Success text-white flex justify-center items-center">
                         <i className="fa-solid fa-cart-shopping"></i>
@@ -24,7 +25,7 @@ export default function ProductCard({ productDetails }) {
                         <i className="fa-solid fa-eye"></i>
                     </Link>
                 </div>
-            </div>
+            </figure>
             <div className="mt-2 mb-1 px-3 -space-y-2">
                 <h3 className="text-Success font-sans text-base font-medium">{category.name}</h3>
                 <h2 className="text-xl font-sans line-clamp-2 h-14">{title}</h2>
@@ -42,6 +43,6 @@ export default function ProductCard({ productDetails }) {
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     </>
 }

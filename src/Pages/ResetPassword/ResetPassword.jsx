@@ -3,10 +3,9 @@ import { useFormik } from "formik"
 import { useState } from "react"
 import { Helmet } from "react-helmet"
 import toast from "react-hot-toast"
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import * as Yup from "yup"
 export default function ResetPassword() {
-    const [errorMessage, setErrorMessage] = useState(null)
     const [oneClick, setOneClick] = useState(true)
     const navigate = useNavigate()
     const [errorRespose, setErrorRespose] = useState(null)
@@ -34,12 +33,10 @@ export default function ResetPassword() {
                         setOneClick(true)
                     }
                 }, 2500)
-                setErrorMessage(null)
                 setErrorRespose(null)
             }
         } catch (error) {
             setOneClick(true)
-            setErrorMessage(error.response.data.message)
             setErrorRespose(error.response.data.message)
             toast.error(error.response.data.message)
         } finally {
@@ -68,37 +65,42 @@ export default function ResetPassword() {
     return <>
         <Helmet>
             <title>New password</title>
+            <meta name="description" content="Enter a new password" />
         </Helmet>
         <section>
-            <h2 className="text-Success space-x-2 text-2xl mb-2">
-                <i className="fa-regular fa-circle-user"></i>
-                <span>New password</span>
-            </h2>
-            <form action="" className="space-y-2" onSubmit={Formik.handleSubmit}>
-                <div>
-                    <input type="email" autoComplete="on" placeholder="Email" className="form-control w-full"
-                        name="email" value={Formik.values.email} onChange={Formik.handleChange}
-                        onBlur={Formik.handleBlur}
-                    />
-                    {Formik.errors.email && Formik.touched.email ? <div className="text-red-600 text-base font-semibold flex ">* {Formik.errors.email}</div> : ""}
-                </div>
-                <div className="relative">
-                    <input type="password" autoComplete="on" placeholder="New password" className="form-control w-full"
-                        name="newPassword" value={Formik.values.newPassword} onChange={Formik.handleChange}
-                        onBlur={Formik.handleBlur}
-                    />
-                    <div className="absolute top-2 right-2 " onClick={(e) => {
-                        toogleEye(e)
-                    }}>
-                        <i className={IsShowPassword ? "fi fi-rs-crossed-eye" : "fi fi-rs-eye"} />
+            <header>
+                <h2 className="text-Success space-x-2 text-2xl mb-2">
+                    <i className="fa-regular fa-circle-user"></i>
+                    <span>New password</span>
+                </h2>
+            </header>
+            <fieldset>
+                <form action="" className="space-y-2" onSubmit={Formik.handleSubmit}>
+                    <div>
+                        <input type="email" autoComplete="on" placeholder="Email" className="form-control w-full"
+                            name="email" value={Formik.values.email} onChange={Formik.handleChange}
+                            onBlur={Formik.handleBlur}
+                        />
+                        {Formik.errors.email && Formik.touched.email ? <div className="text-red-600 text-sm font-semibold flex items-center">* {Formik.errors.email}</div> : ""}
                     </div>
-                    {Formik.errors.newPassword && Formik.touched.newPassword ? <div className="text-red-600 text-base font-semibold flex ">* {Formik.errors.newPassword}</div> : ""}
-                </div>
-                {errorRespose !== null ? <div className="text-red-600 text-base font-semibold flex ">* {errorRespose}</div> : ""}
-                <div className="flex flex-col items-start mt-2" style={{ margin: 0 }}>
-                    <button type="submit" className="btn-success uppercase mt-1">Save</button>
-                </div>
-            </form>
+                    <div className="relative">
+                        <input type="password" autoComplete="on" placeholder="New password" className="form-control w-full"
+                            name="newPassword" value={Formik.values.newPassword} onChange={Formik.handleChange}
+                            onBlur={Formik.handleBlur}
+                        />
+                        <div role="button" className="absolute top-2 right-2 " onClick={(e) => {
+                            toogleEye(e)
+                        }}>
+                            <i className={IsShowPassword ? "fi fi-rs-crossed-eye" : "fi fi-rs-eye"} />
+                        </div>
+                        {Formik.errors.newPassword && Formik.touched.newPassword ? <div className="text-red-600 text-sm font-semibold flex items-center">* {Formik.errors.newPassword}</div> : ""}
+                    </div>
+                    {errorRespose !== null ? <div className="text-red-600 text-sm font-semibold flex items-center">* {errorRespose}</div> : ""}
+                    <div className="flex flex-col items-start">
+                        <button type="submit" className="btn-success uppercase mt-1">Save</button>
+                    </div>
+                </form>
+            </fieldset>
         </section>
     </>
 }

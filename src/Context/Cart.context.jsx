@@ -27,7 +27,7 @@ export default function CartProvider({ children }) {
                 getUserCart()
             }
         } catch (error) {
-            c
+            
         } finally {
             toast.dismiss(toastId)
         }

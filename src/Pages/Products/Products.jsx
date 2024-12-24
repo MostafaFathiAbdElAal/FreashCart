@@ -5,7 +5,6 @@ import Loading from "../../Components/Loading/Loading"
 import { Helmet } from "react-helmet"
 import { useEffect, useState } from "react"
 import LoadingBase from "../../Components/LoadingBase/LoadingBase"
-import { isEmptyArray } from "formik"
 export default function Products() {
     let [listProduct, setListProduct] = useState(null)
     let [pageNumber, setPageNumber] = useState(1)
@@ -16,7 +15,7 @@ export default function Products() {
         }
         return await axios.request(options)
     }
-    let { data, isLoading, refetch ,isFetching} = useQuery({
+    let { data, isLoading, refetch, isFetching } = useQuery({
         queryKey: ["Products"],
         queryFn: getProducts,
         refetchOnMount: false,
@@ -31,15 +30,17 @@ export default function Products() {
     useEffect(() => {
         refetch()
     }, [pageNumber])
-    console.log(isEmptyArray(listProduct))
     return <>
         <Helmet>
             <title>
                 Products
             </title>
+            <meta name="description" content="products page explore products" />
         </Helmet>
         <section>
-            <h2 className="mb-5 text-Success text-3xl font-medium text-center">All Products</h2>
+            <header>
+                <h2 className="mb-5 text-Success text-3xl font-medium text-center">All Products</h2>
+            </header>
             <div className="grid grid-cols-12 gap-4 min-h-96">
                 {
                     listProduct === null ? <div className="col-span-12"><Loading /></div> : <>
@@ -55,10 +56,10 @@ export default function Products() {
                             </div>
                             <input onChange={(e) => {
                                 setListProduct(data.data.data.filter((product) => {
-                                    return product.title.toLowerCase().includes(e.target.value.toLowerCase())   
+                                    return product.title.toLowerCase().includes(e.target.value.toLowerCase())
                                 }));
-                                
-                                
+
+
                             }} type="search" placeholder="Search..." className="form-control w-full" /></div>
                         {listProduct.map((product) => (
                             <ProductCard productDetails={product} key={product._id} />
@@ -66,6 +67,6 @@ export default function Products() {
                 }
             </div>
         </section>
-                {data && isFetching ? <LoadingBase/> : null}
+        {data && isFetching ? <LoadingBase /> : null}
     </>
 }

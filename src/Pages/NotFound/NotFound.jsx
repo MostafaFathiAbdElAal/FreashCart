@@ -4,7 +4,10 @@ export default function NotFound() {
     return <>
         <Helmet>
             <title>Not found page</title>
+            <meta name="description" content="Not found your page" />
         </Helmet>
-        <img src={NotFoundImage} alt="Error 404" className="mx-auto" />
+        <figure>
+            <img src={NotFoundImage} alt="Error 404" className="mx-auto" />
+        </figure>
     </>
 }

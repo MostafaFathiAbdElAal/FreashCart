@@ -28,6 +28,7 @@ export default function AllOrders() {
     return <>
         <Helmet>
             <title>Your orders</title>
+            <meta name="description" content="Freshcart orders page explore your order now!." />
         </Helmet>
         <section className="min-h-screen space-y-2">
             {orders ? orders.map((order) =>
@@ -43,12 +44,11 @@ export default function AllOrders() {
                     <span className="text-sm text-black font-bold -translate-y-2 inline-block">#{order.id}</span>
                     <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-5">
                         {order.cartItems.map((item) => <div key={item._id} className="relative product border-2 col-span-2 border-gray-200 border-solid rounded-md ">
-                            <div className="relative">
+                            <figure className="relative">
                                 <img className="w-full" src={item.product.imageCover} alt={item.product.title} />
-                            </div>
+                            </figure>
                             <div className="flex flex-col justify-between p-2 h-20">
                                 <p className="text-lg line-clamp-2 leading-5 font-semibold">{item.product.title}</p>
-
                                 <div className="flex gap-10 justify-between font-semibold text-sm items-end px-3">
                                     <div>
                                         <span className="text-base">Count:</span> <span>5</span>

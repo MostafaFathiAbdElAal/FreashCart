@@ -6,6 +6,7 @@ import { CartContext } from "../../../Context/Cart.context"
 import axios from "axios"
 import toast from "react-hot-toast"
 import { useNavigate } from "react-router-dom"
+import { Helmet } from "react-helmet"
 export default function Checkout() {
     const { token } = useContext(UserContext)
     const { cartInfo } = useContext(CartContext)
@@ -81,37 +82,45 @@ export default function Checkout() {
         ,
         validationSchema
     })
-    return <>
-        <h2 className="text-xl font-extrabold text-slate-800">Shipping Address</h2>
-        <form action="" onSubmit={formik.handleSubmit}>
-            <div className="space-y-2 mt-3">
-                <div>
-                    <input className="form-control w-full" type="text" placeholder="City"
-                        name="city" value={formik.values.city} onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                    />
-                    {formik.errors.city && formik.touched.city ? <div className="text-red-600 text-base font-semibold flex ">* {formik.errors.city}</div> : ""}
-                </div>
-                <div>
-                    <input className="form-control w-full" type="tel" inputMode="numeric" placeholder="Phone"
-                        name="phone" value={formik.values.phone} onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                    />
-                    {formik.errors.phone && formik.touched.phone ? <div className="text-red-600 text-base font-semibold flex ">* {formik.errors.phone}</div> : ""}
+    return <section>
+        <Helmet>
+            <title>Checkout</title>
+            <meta name="description" content="Freshcart checkout page pay your products cash or credit" />
+        </Helmet>
+        <header>
+            <h2 className="text-xl font-extrabold text-slate-800">Shipping Address</h2>
+        </header>
+        <fieldset>
+            <form action="" onSubmit={formik.handleSubmit}>
+                <div className="space-y-2 mt-3">
+                    <div>
+                        <input className="form-control w-full" type="text" placeholder="City"
+                            name="city" value={formik.values.city} onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                        />
+                        {formik.errors.city && formik.touched.city ? <div className="text-red-600 text-base font-semibold flex ">* {formik.errors.city}</div> : ""}
+                    </div>
+                    <div>
+                        <input className="form-control w-full" type="tel" inputMode="numeric" placeholder="Phone"
+                            name="phone" value={formik.values.phone} onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                        />
+                        {formik.errors.phone && formik.touched.phone ? <div className="text-red-600 text-base font-semibold flex ">* {formik.errors.phone}</div> : ""}
 
+                    </div>
+                    <div>
+                        <textarea className="form-control w-full resize-none" rows={4} placeholder="Details"
+                            name="details" value={formik.values.details} onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                        ></textarea>
+                        {formik.errors.details && formik.touched.details ? <div className="text-red-600 text-base font-semibold flex ">* {formik.errors.details}</div> : ""}
+                    </div>
+                    <div className="space-x-3">
+                        <button type="submit" onClick={() => { setPaymentMethod("Cash order") }} className="btn-success bg-blue-500 hover:bg-blue-600 font-extrabold">Cash order</button>
+                        <button type="submit" onClick={() => { setPaymentMethod("Online payment") }} className="btn-success bg-indigo-500 hover:bg-indigo-600 font-extrabold">Online payment</button>
+                    </div>
                 </div>
-                <div>
-                    <textarea className="form-control w-full resize-none" rows={4} placeholder="Details"
-                        name="details" value={formik.values.details} onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                    ></textarea>
-                    {formik.errors.details && formik.touched.details ? <div className="text-red-600 text-base font-semibold flex ">* {formik.errors.details}</div> : ""}
-                </div>
-                <div className="space-x-3">
-                    <button type="submit" onClick={()=>{setPaymentMethod("Cash order")}} className="btn-success bg-blue-500 hover:bg-blue-600 font-extrabold">Cash order</button>
-                    <button type="submit" onClick={()=>{setPaymentMethod("Online payment")}} className="btn-success bg-indigo-500 hover:bg-indigo-600 font-extrabold">Online payment</button>
-                </div>
-            </div>
-        </form>
-    </>
+            </form>
+        </fieldset>
+    </section>
 }

@@ -18,7 +18,7 @@ export default function Home() {
         return await axios.request(options)
     }
 
-    let { data, isLoading, refetch } = useQuery({
+    let { data, isLoading } = useQuery({
         queryKey: ["Products in home"],
         queryFn: getProducts,
         refetchOnMount: false,
@@ -35,7 +35,7 @@ export default function Home() {
     return <>
         <Helmet>
             <title>Home</title>
-            <meta name="description" content="Fresh cart home page" />
+            <meta name="description" content="Freshcart home page" />
         </Helmet>
         <HomeSlider />
         <CategorySlider />
@@ -43,7 +43,6 @@ export default function Home() {
             {data.data.data.map((product) => (
                 <ProductCard productDetails={product} key={product._id} />
             ))}
-            
         </div>
     </>
 }

@@ -7,7 +7,7 @@
 	.form-control {
 		@apply px-3 py-1 rounded outline-none border-2 border-gray-200 focus:border-gray-700
 	}
-
+	
 	.btn-success {
 		@apply px-10 py-1 bg-Success bg-opacity-75 rounded-md hover:bg-Success hover:bg-opacity-100 transition-colors duration-300 text-white
 	}
@@ -20,16 +20,27 @@
 
 	}
 }
-
+/* Font */
+body {
+	font-family: "Encode Sans Expanded", ;
+}
+/* Navbar Responsive */
+@media(max-width:1024px){
+	#Barnav:checked ~ ul{
+		height:280px;
+	}
+	#Basenav{
+		height: 0px;
+		transition: height 400ms ease-in-out;
+	}
+}
+/* Price before discount */
 .PreDiscount {
 	text-decoration: line-through;
 	font-size: 11px;
 }
 
-body {
-	font-family: "Encode Sans Expanded", ;
-}
-
+/* Cart loading */
 .preloader {
 	--hue: 120;
 	--bg: hsl(var(--hue), 10%, 90%);
@@ -198,7 +209,7 @@ body {
 		stroke-dashoffset: 40.84;
 	}
 }
-
+/* Sliders */
 .imageSlider button {
 	@apply border border-[3px] border-solid border-transparent
 }
@@ -210,7 +221,7 @@ body {
 .imageSlider button.active {
 	@apply border border-[3px] border-solid border-black
 }
-
+/* Loading spiner green */
 .loader {
 	width: 50px;
 	aspect-ratio: 1;
@@ -227,7 +238,7 @@ body {
 		transform: rotate(1turn)
 	}
 }
-
+/* Loading base */
 .loaderBase {
 	color: #fff;
 	font-size: 10px;
